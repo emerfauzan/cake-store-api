@@ -3,8 +3,17 @@ package cli
 import (
 	"log"
 
+	"github.com/emerfauzan/cake-store-api/app"
 	"github.com/spf13/cobra"
 )
+
+var appCli = &cobra.Command{
+	Use:   "run",
+	Short: "Run app",
+	Run: func(cmd *cobra.Command, args []string) {
+		app.NewApp()
+	},
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "app",
@@ -12,7 +21,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(migrationCli)
+	rootCmd.AddCommand(appCli, migrationCli)
 }
 
 func Execute() {
