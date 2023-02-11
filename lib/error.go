@@ -31,4 +31,22 @@ var (
 		Code:     1002,
 		HTTPCode: http.StatusUnprocessableEntity,
 	}
+
+	ErrorInternalServer = CustomError{
+		Message:  "Something went wrong",
+		Code:     1003,
+		HTTPCode: http.StatusInternalServerError,
+	}
+
+	ErrorSessionExpired = CustomError{
+		Message:  "Your session has been expired",
+		Code:     1004,
+		HTTPCode: http.StatusUnauthorized,
+	}
+
+	ErrorTokenNotValid = CustomError{
+		Message:  "Your token is not valid",
+		Code:     1005,
+		HTTPCode: http.StatusUnauthorized,
+	}
 )

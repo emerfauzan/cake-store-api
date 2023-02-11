@@ -19,7 +19,7 @@ func NewDB() *sql.DB {
 	fmt.Println("Connecting to Database")
 
 	connString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s",
+		"%s:%s@tcp(%s:%d)/%s?parseTime=true",
 		USER, PASSWORD, HOST, PORT, DBNAME,
 	)
 

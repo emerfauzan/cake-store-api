@@ -12,7 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (usecase Usecase) AuthLoginUsecase(ctx context.Context, request request.LoginRequest) (response response.LoginResponse, err error) {
+func (usecase *Usecase) AuthLoginUsecase(ctx context.Context, request request.LoginRequest) (response response.LoginResponse, err error) {
 	var user = model.User{}
 	user, err = usecase.repository.GetUserByUsername(ctx, request.Username)
 
@@ -32,7 +32,7 @@ func (usecase Usecase) AuthLoginUsecase(ctx context.Context, request request.Log
 	err = usecase.repository.CreateSession(ctx, model.Session{
 		UserId:     user.Id,
 		SessionKey: uuid,
-		ExpiresAt:  expiresAt,
+		ExpiresAt:  &expiresAt,
 	})
 
 	if err != nil {
@@ -43,6 +43,16 @@ func (usecase Usecase) AuthLoginUsecase(ctx context.Context, request request.Log
 	response.Name = user.Name
 	response.Username = user.Username
 	response.Token = uuid
+
+	return response, nil
+}
+
+func (usecase *Usecase) ValidateToken(ctx context.Context, token string) (response model.Session, err error) {
+	response, err = usecase.repository.GetSessionBySessionKey(ctx, token)
+
+	if err != nil {
+		return response, err
+	}
 
 	return response, nil
 }

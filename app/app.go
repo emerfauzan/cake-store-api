@@ -18,8 +18,13 @@ func NewApp() {
 	usecase := usecase.Init(*repository)
 	handler := handler.Init(*usecase)
 
-	r.HandleFunc("/", handler.HealthzHandler)
-	r.HandleFunc("/auth/login", handler.AuthLoginHandler).Methods("POST")
+	r.HandleFunc("/", handler.StandardMiddleware(http.HandlerFunc(handler.HealthzHandler)).ServeHTTP).Methods("GET")
+	r.HandleFunc("/auth/login", handler.StandardMiddleware(http.HandlerFunc(handler.AuthLoginHandler)).ServeHTTP).Methods("POST")
+	r.HandleFunc("/cakes", handler.UserMiddlewares(http.HandlerFunc(handler.GetCakesHandler)).ServeHTTP).Methods("GET")
+	r.HandleFunc("/cakes/{id:[0-9]+}", handler.UserMiddlewares(http.HandlerFunc(handler.GetCakeByIdHandler)).ServeHTTP).Methods("GET")
+	r.HandleFunc("/cakes", handler.UserMiddlewares(http.HandlerFunc(handler.CreateCakeHandler)).ServeHTTP).Methods("POST")
+	r.HandleFunc("/cakes/{id:[0-9]+}", handler.UserMiddlewares(http.HandlerFunc(handler.UpdateCakeHandler)).ServeHTTP).Methods("PUT")
+	r.HandleFunc("/cakes/{id:[0-9]+}", handler.UserMiddlewares(http.HandlerFunc(handler.DeleteCakeHandler)).ServeHTTP).Methods("DELETE")
 
 	srv := &http.Server{
 		Addr:         "0.0.0.0:8080",

@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/benbjohnson/clock v1.1.0 // indirect
+	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/google/uuid v1.3.0

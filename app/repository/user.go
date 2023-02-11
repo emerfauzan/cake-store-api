@@ -8,7 +8,7 @@ import (
 )
 
 func (repository *Repository) GetUserByUsername(ctx context.Context, usename string) (user model.User, err error) {
-	rows, err := repository.db.Query("selects id, name, username, encrypted_password from users where username = (?)", usename)
+	rows, err := repository.db.Query("select id, name, username, encrypted_password from users where username = (?)", usename)
 
 	if err != nil {
 		logger.Error(ctx, "error get user by username", map[string]interface{}{

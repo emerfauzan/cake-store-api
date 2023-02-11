@@ -76,7 +76,6 @@ func (s *Seeder) Seed() error {
 			}
 
 			query := fmt.Sprintf("INSERT INTO %s %s values %s", seeder.Table, columnName, valueName)
-			fmt.Println(query)
 
 			if _, err := tx.Exec(query); err != nil {
 				tx.Rollback()
