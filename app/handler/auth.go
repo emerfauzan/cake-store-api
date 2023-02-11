@@ -24,7 +24,7 @@ func (handler *Handler) AuthLoginHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	response, err := handler.usecase.AuthLoginUsecase(payload)
+	response, err := handler.usecase.AuthLoginUsecase(r.Context(), payload)
 
 	if err != nil {
 		writeError(w, err)

@@ -53,8 +53,6 @@ func writeError(w http.ResponseWriter, err error) {
 	var resp interface{}
 	code := http.StatusInternalServerError
 
-	fmt.Println(err)
-
 	switch errOrig := err.(type) {
 	case lib.CustomError:
 		resp = ErrorBody{

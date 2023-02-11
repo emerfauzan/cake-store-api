@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"time"
 
 	"github.com/emerfauzan/cake-store-api/app/model"
@@ -11,9 +12,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (usecase Usecase) AuthLoginUsecase(request request.LoginRequest) (response response.LoginResponse, err error) {
+func (usecase Usecase) AuthLoginUsecase(ctx context.Context, request request.LoginRequest) (response response.LoginResponse, err error) {
 	var user = model.User{}
-	user, err = usecase.repository.GetUserByUsername("cake_shop")
+	user, err = usecase.repository.GetUserByUsername(ctx, request.Username)
 
 	if err != nil {
 		return response, err
@@ -28,7 +29,7 @@ func (usecase Usecase) AuthLoginUsecase(request request.LoginRequest) (response 
 	uuid := uuid.NewString()
 	expiresAt := time.Now().Add(48 * time.Hour)
 
-	err = usecase.repository.CreateSession(model.Session{
+	err = usecase.repository.CreateSession(ctx, model.Session{
 		UserId:     user.Id,
 		SessionKey: uuid,
 		ExpiresAt:  expiresAt,

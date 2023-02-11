@@ -1,14 +1,20 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/emerfauzan/cake-store-api/app/model"
+	"github.com/emerfauzan/cake-store-api/lib/logger"
 )
 
-func (repository *Repository) GetUserByUsername(usename string) (user model.User, err error) {
-	// var result = model.User{}
-	rows, err := repository.db.Query("select id, name, username, encrypted_password from users where username = (?)", usename)
+func (repository *Repository) GetUserByUsername(ctx context.Context, usename string) (user model.User, err error) {
+	rows, err := repository.db.Query("selects id, name, username, encrypted_password from users where username = (?)", usename)
 
 	if err != nil {
+		logger.Error(ctx, "error get user by username", map[string]interface{}{
+			"error": err,
+			"tags":  []string{"query"},
+		})
 		return user, err
 	}
 	defer rows.Close()
