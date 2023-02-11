@@ -1,0 +1,12 @@
+[
+    {
+        "table": "users",
+        "data": [
+            {
+                "name": "Cake Shop",
+                "username": "cake_shop",
+                "encrypted_password": "P@ssword123"
+            }
+        ]
+    }   
+]

@@ -1,6 +1,8 @@
 name = all
 run:
 	go run main.go run
+seed:
+	go run main.go seed
 migrate-create:
 	go run main.go migrate create -n $(name)
 migrate-up:

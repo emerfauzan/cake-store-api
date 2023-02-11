@@ -21,7 +21,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(appCli, migrationCli)
+	rootCmd.AddCommand(appCli, migrationCli, seederCli)
 }
 
 func Execute() {

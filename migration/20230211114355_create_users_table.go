@@ -11,7 +11,7 @@ func init() {
 }
 
 func mig_20230211114355_create_users_table_up(tx *sql.Tx) error {
-	_, err := tx.Exec("CREATE TABLE users ( name varchar(255) );")
+	_, err := tx.Exec("CREATE TABLE users (id serial primary key, name varchar(255), username varchar(255), encrypted_password varchar(255) );")
 	if err != nil {
 		return err
 	}
