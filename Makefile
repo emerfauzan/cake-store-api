@@ -1,6 +1,6 @@
 name = all
 run:
-	go run main.go run
+	go run app/app.go
 seed:
 	go run main.go seed
 migrate-create:

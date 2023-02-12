@@ -1,4 +1,4 @@
-package app
+package main
 
 import (
 	"net/http"
@@ -8,10 +8,17 @@ import (
 	"github.com/emerfauzan/cake-store-api/app/repository"
 	"github.com/emerfauzan/cake-store-api/app/usecase"
 	"github.com/emerfauzan/cake-store-api/config"
+	"github.com/emerfauzan/cake-store-api/lib/logger"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
-func NewApp() {
+func init() {
+	godotenv.Load()
+	logger.Init()
+}
+
+func main() {
 	r := mux.NewRouter()
 	db := config.NewDB()
 	repository := repository.Init(db)
