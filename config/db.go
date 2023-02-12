@@ -3,24 +3,17 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
-)
-
-const (
-	HOST     = "127.0.0.1"
-	PORT     = 3306
-	USER     = "root"
-	PASSWORD = ""
-	DBNAME   = "cake"
 )
 
 func NewDB() *sql.DB {
 	fmt.Println("Connecting to Database")
 
 	connString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s?parseTime=true",
-		USER, PASSWORD, HOST, PORT, DBNAME,
+		"%s:%s@tcp(%s:%s)/%s?parseTime=true",
+		os.Getenv("DB_USER"), os.Getenv("DB_USER_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME"),
 	)
 
 	db, err := sql.Open("mysql", connString)

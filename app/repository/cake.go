@@ -33,7 +33,7 @@ func (repository *Repository) GetCakeById(ctx context.Context, id uint) (cake mo
 }
 
 func (repository *Repository) GetActiveCakes(ctx context.Context) (cakes []model.Cake, err error) {
-	rows, err := repository.db.Query("selects id, title, description, rating, image_url, is_deleted_flag, created_by, updated_by, deleted_by, created_at, updated_at, deleted_at from cakes where is_deleted_flag = false")
+	rows, err := repository.db.Query("select id, title, description, rating, image_url, is_deleted_flag, created_by, updated_by, deleted_by, created_at, updated_at, deleted_at from cakes where is_deleted_flag = false")
 
 	if err != nil {
 		logger.Error(ctx, "error get active cakes", map[string]interface{}{
